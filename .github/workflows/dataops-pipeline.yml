@@ -1,0 +1,57 @@
+name: DataOps pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  AWS_REGION: us-west-2
+  DB_NAME: do4m_database
+  DEV_DB_HOST: dev-db-host
+  STAGING_DB_HOST: staging-db-host
+  PROD_DB_HOST: prod-db-host
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y awscli postgresql-client python3-pip
+          pip3 install -r requirements.txt
+
+      - name: Run tests
+        run: python3 tests.py
+
+  deploy_dev:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/dev'
+
+    steps:
+      - name: Deploy to Dev environment
+        run: .github/scripts/deploy_dev.sh
+
+  deploy_staging:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/staging'
+
+    steps:
+      - name: Deploy to Staging environment
+        run: .github/scripts/deploy_staging.sh
+
+  deploy_prod:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Deploy to Production environment
+        run: .github/scripts/deploy_prod.sh

@@ -1,0 +1,28 @@
+# Ignore Terraform state files
+**/*.tfstate
+**/*.tfstate.*
+
+# Ignore AWS credentials file
+.aws/credentials
+
+# Ignore virtual environment
+.venv/
+
+# Ignore PyCharm project files
+.idea/
+
+# Ignore Python bytecode files
+*.pyc
+__pycache__/
+
+# Ignore local build artifacts
+build/
+dist/
+*.egg-info/
+
+# Ignore log files
+*.log
+logs/
+
+# Ignore any generated files or directories
+generated/
