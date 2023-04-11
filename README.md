@@ -1,6 +1,8 @@
 # DataOps Pipeline for AWS RDS Postgres
 
 ## Folder & Files Structure
+
+```
 .
 ├── .github
 │   ├── workflows
@@ -25,3 +27,4 @@
 ├── .gitignore
 ├── README.md
 └── requirements.txt
+```
