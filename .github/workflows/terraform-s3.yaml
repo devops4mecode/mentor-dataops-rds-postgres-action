@@ -50,11 +50,16 @@ jobs:
   terraform-destroy:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.0.5
       - name: Terraform Init
         if: inputs.DESTROY == 'false'
         run: terraform init
         working-directory: ./terraform/backend
-
       - name: Terraform Destroy
         if: inputs.DESTROY == 'true'
         working-directory: terraform
