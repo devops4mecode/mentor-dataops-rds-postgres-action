@@ -57,7 +57,7 @@ jobs:
         with:
           terraform_version: 1.0.5
       - name: Terraform Init
-        if: inputs.DESTROY == 'false'
+        if: inputs.DESTROY == 'true'
         run: terraform init
         working-directory: ./terraform/backend
       - name: Terraform Destroy
