@@ -50,6 +50,11 @@ jobs:
   terraform-destroy:
     runs-on: ubuntu-latest
     steps:
+      - name: Terraform Init
+        if: inputs.DESTROY == 'false'
+        run: terraform init
+        working-directory: ./terraform/backend
+
       - name: Terraform Destroy
         if: inputs.DESTROY == 'true'
         working-directory: terraform
