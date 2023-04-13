@@ -1,12 +1,13 @@
 # .github/workflows/terraform-rds.yaml
 name: Terraform AWS RDS Deployment
 
-on: workflow_dispatch
-inputs:
-  DESTROY:
-    description: 'Destroy infrastructure'
-    required: false
-    default: 'false'
+on: 
+  workflow_dispatch:
+    inputs:
+      DESTROY:
+        description: 'Destroy infrastructure'
+        required: false
+        default: 'false'
       # TFVARS:
       #   description: 'TFVARS file for RDS Postgres'
       #   required: true
