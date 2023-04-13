@@ -1,0 +1,52 @@
+# .github/workflows/terraform-s3.yaml
+name: Terraform AWS S3 Deployment
+
+on: 
+  workflow_dispatch:
+    inputs:
+      DESTROY:
+        description: 'Destroy infrastructure'
+        required: false
+        default: 'false'
+
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_DEFAULT_REGION: ap-southeast-1
+
+jobs:
+  terraform-apply:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.0.5
+      - name: Terraform Init
+        run: terraform init
+        working-directory: ./backend
+      - name: Terraform Apply
+        id: apply
+        run: terraform apply -auto-approve
+        working-directory: ./backend
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - name: Get Outputs
+        run: echo "${{ steps.apply.outputs.outputs }}" >> outputs.json
+        id: get_outputs
+      - name: Upload Outputs
+        uses: actions/upload-artifact@v2
+        with:
+          name: terraform_outputs
+          path: outputs.json
+
+  terraform-destroy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Terraform Destroy
+        if: inputs.DESTROY == 'true'
+        working-directory: terraform
+        run: terraform destroy -auto-approve
