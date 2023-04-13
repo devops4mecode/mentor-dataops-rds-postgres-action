@@ -28,9 +28,11 @@ jobs:
         with:
           terraform_version: 1.0.5
       - name: Terraform Init
+        if: inputs.DESTROY == 'false'
         run: terraform init
         working-directory: ./terraform
       - name: Terraform Apply
+        if: inputs.DESTROY == 'false'
         id: apply
         run: terraform apply -auto-approve -var-file=dev.tfvars
         working-directory: ./terraform
@@ -38,9 +40,11 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       - name: Get Outputs
+        if: inputs.DESTROY == 'false'
         run: echo "${{ steps.apply.outputs.outputs }}" >> outputs.json
         id: get_outputs
       - name: Upload Outputs
+        if: inputs.DESTROY == 'false'
         uses: actions/upload-artifact@v2
         with:
           name: terraform_outputs
@@ -51,5 +55,5 @@ jobs:
     steps:
       - name: Terraform Destroy
         if: inputs.DESTROY == 'true'
-        working-directory: terraform
+        working-directory: ./terraform
         run: terraform destroy -auto-approve -var-file=dev.tfvars
