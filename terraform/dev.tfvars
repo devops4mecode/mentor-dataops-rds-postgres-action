@@ -15,7 +15,7 @@ availability_zones = [
 db_instance_identifier = "my-db-instance-dev"
 db_username            = "dev_user"
 db_password            = "dev_password"
-db_name                = "rds-postgres-dev"
+db_name                = "rdspgdev001"
 allowed_cidr_blocks = [
   "10.0.0.0/8",
   "172.16.0.0/12",

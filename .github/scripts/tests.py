@@ -3,9 +3,9 @@ import psycopg2
 # Connect to the database
 conn = psycopg2.connect(
     host='localhost',
-    dbname='do4m_database',
-    user='do4m_user',
-    password='do4m_password'
+    dbname='do4mdb',
+    user='do4muser',
+    password='do4mpassword'
 )
 
 # Run some tests
