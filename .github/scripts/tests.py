@@ -2,10 +2,10 @@ import psycopg2
 
 # Connect to the database
 conn = psycopg2.connect(
-    host='localhost',
-    dbname='do4mdb',
-    user='do4muser',
-    password='do4mpassword'
+    host='rds.c81cqfeexlfz.ap-southeast-1.rds.amazonaws.com',
+    dbname='rdspgdev001',
+    user='dev_user',
+    password='dev_password'
 )
 
 # Run some tests
