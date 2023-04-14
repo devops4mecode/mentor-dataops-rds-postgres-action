@@ -5,11 +5,13 @@ on:
   push:
     branches:
       - main
+      - dev
+      - staging
 
 env:
-  AWS_REGION: us-west-2
-  DB_NAME: do4m_database
-  DEV_DB_HOST: dev-db-host
+  AWS_REGION: ap-southeast-1
+  DB_NAME: rdspgdev001
+  DEV_DB_HOST: rds.c81cqfeexlfz.ap-southeast-1.rds.amazonaws.com
   STAGING_DB_HOST: staging-db-host
   PROD_DB_HOST: prod-db-host
 
@@ -29,6 +31,7 @@ jobs:
 
       - name: Run tests
         run: python3 tests.py
+        working-directory: ./.github/scripts
 
   deploy_dev:
     needs: build

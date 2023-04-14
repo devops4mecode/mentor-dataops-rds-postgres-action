@@ -1,9 +1,9 @@
 resource "aws_db_subnet_group" "rds" {
-  name       = "rds"
-  subnet_ids = [aws_subnet.subnet_a.id, aws_subnet.subnet_b.id]
+  name       = "rdsubgrp"
+  subnet_ids = [aws_subnet.db1.id, aws_subnet.db2.id]
 
   tags = {
-    Name = "rds"
+    Name = "rdsubgrp"
   }
 }
 
@@ -17,6 +17,7 @@ resource "aws_db_instance" "rds" {
   password             = var.db_password
   allocated_storage    = var.db_allocated_storage
   db_subnet_group_name = aws_db_subnet_group.rds.name
+  publicly_accessible  = true
   vpc_security_group_ids = [
     aws_security_group.db.id,
   ]
