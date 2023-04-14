@@ -11,7 +11,7 @@ on:
 env:
   AWS_REGION: ap-southeast-1
   DB_NAME: rdspgdev001
-  DEV_DB_HOST: dev-db-host
+  DEV_DB_HOST: rds.c81cqfeexlfz.ap-southeast-1.rds.amazonaws.com
   STAGING_DB_HOST: staging-db-host
   PROD_DB_HOST: prod-db-host
 

@@ -51,13 +51,11 @@ variable "db_engine_version" {
 variable "db_username" {
   type        = string
   description = "The username for the database"
-  default     = "myuser"
 }
 
 variable "db_password" {
   type        = string
   description = "The password for the database"
-  default     = "mypassword"
 }
 
 variable "db_port" {
@@ -75,7 +73,6 @@ variable "db_multi_az" {
 variable "db_instance_identifier" {
   type        = string
   description = "The identifier for the RDS instance"
-  default     = "mydatabaseinstance"
 }
 
 variable "db_allocated_storage" {
