@@ -31,7 +31,7 @@ jobs:
 
       - name: Run tests
         run: python3 tests.py
-        working-directory: ./github/scripts
+        working-directory: ./.github/scripts
 
   deploy_dev:
     needs: build
